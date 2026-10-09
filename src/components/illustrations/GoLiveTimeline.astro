@@ -1,0 +1,37 @@
+---
+// Readiness path from Workstream F, ending in a Go/No-Go decision gate.
+const stages = [
+  { t: 'SIT', d: 'System integration testing' },
+  { t: 'UAT', d: 'User acceptance & sign-off' },
+  { t: 'Security', d: 'Security assessments' },
+  { t: 'Data migration', d: 'Transformations & reconciliation' },
+  { t: 'Cutover', d: 'Deployment readiness plan' },
+  { t: 'Go / No-Go', d: 'Structured decision gate', gate: true },
+  { t: 'Go-live', d: 'Transition & operational support', live: true },
+];
+---
+<ol class="tl" aria-label="Go-live readiness path">
+  {stages.map((s, i) => (
+    <li class:list={['st fade', { gate: s.gate, live: s.live }]} style={`animation-delay:${i * 90}ms`}>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="t">{s.t}</span>
+      <span class="d">{s.d}</span>
+    </li>
+  ))}
+</ol>
+<style>
+  .tl { list-style: none; margin: 0; padding: 8px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); position: relative; }
+  .tl::before { content: ''; position: absolute; left: 7%; right: 7%; top: 21px; height: 3px; background: linear-gradient(90deg, var(--accent-3), var(--accent)); border-radius: 2px; }
+  .st { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 0 4px; position: relative; }
+  .dot { width: 28px; height: 28px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent-3); margin-bottom: 8px; }
+  .gate .dot { border-radius: 4px; transform: rotate(45deg) scale(0.9); border-color: var(--accent-2); background: var(--accent-2-soft); }
+  .live .dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft); }
+  .t { font: 700 0.95rem/1.2 var(--font-display); }
+  .d { font-size: 0.8rem; color: var(--ink-3); line-height: 1.3; }
+  @media (max-width: 720px) {
+    .tl { grid-template-columns: 1fr; gap: 14px; padding-left: 4px; }
+    .tl::before { left: 17px; right: auto; top: 12px; bottom: 12px; width: 3px; height: auto; background: linear-gradient(180deg, var(--accent-3), var(--accent)); }
+    .st { display: grid; grid-template-columns: 28px 1fr; column-gap: 14px; text-align: left; align-items: center; }
+    .dot { grid-row: span 2; margin: 0; }
+  }
+</style>

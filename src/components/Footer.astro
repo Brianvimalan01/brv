@@ -1,0 +1,18 @@
+---
+import { url } from '../lib/url';
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="container inner">
+    <p><strong>BRV</strong> — Brianvimalan Francis · © {year}</p>
+    <p class="muted">
+      <a href={url('/Brianvimalan_Francis_Project_Portfolio.md')} download>Download portfolio (.md)</a>
+      <!-- TODO: add LinkedIn / email links here -->
+    </p>
+  </div>
+</footer>
+<style>
+  footer { border-top: 1px solid var(--line); padding-block: 32px; margin-top: 48px; font-size: 0.92rem; }
+  .inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+  p { margin: 0; }
+</style>

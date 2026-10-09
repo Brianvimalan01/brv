@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import CapabilityIcon from './CapabilityIcon.astro';
+const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+const tones = ['t1', 't2', 't3'];
+---
+<div class="capmap">
+  {caps.map((c, i) => (
+    <section class:list={['cap card fade', tones[i % 3]]} style={`animation-delay:${i * 60}ms`}>
+      <div class="icon"><CapabilityIcon name={c.data.icon} /></div>
+      <h3>{c.data.title}</h3>
+      <ul>{c.data.items.map((it) => <li>{it}</li>)}</ul>
+    </section>
+  ))}
+</div>
+<style>
+  .capmap { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .cap { padding: 22px; }
+  .icon { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: var(--bg-c); color: var(--c); margin-bottom: 14px; }
+  .t1 { --c: var(--accent); --bg-c: var(--accent-soft); }
+  .t2 { --c: var(--accent-3); --bg-c: var(--accent-3-soft); }
+  .t3 { --c: var(--accent-2); --bg-c: var(--accent-2-soft); }
+  ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); font-size: 0.93rem; }
+  li { margin-bottom: 4px; }
+  li::marker { color: var(--c); }
+</style>

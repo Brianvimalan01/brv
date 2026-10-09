@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import CapabilityMap from '../../components/illustrations/CapabilityMap.astro';
+import { url } from '../../lib/url';
+
+const cases = (await getCollection('cases', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Consulting Portfolio">
+  <section class="section container">
+    <span class="eyebrow">Personal consulting portfolio</span>
+    <h1>Engagements</h1>
+    <p class="lead">
+      Technology transformation, ERP modernization, PMO governance, business analysis, data migration
+      and cyber incident governance. Client names and confidential details are intentionally omitted.
+    </p>
+    <p><a href={url('/Brianvimalan_Francis_Project_Portfolio.md')} download>Download the full portfolio (.md) ↓</a></p>
+  </section>
+  <section class="container grid cases">
+    {cases.map((c) => <CaseCard entry={c} />)}
+  </section>
+  <section class="section container">
+    <span class="eyebrow">Consolidated capability map</span>
+    <h2>Capabilities across engagements</h2>
+    <CapabilityMap />
+  </section>
+</BaseLayout>
+<style>
+  .cases { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+</style>

@@ -1,0 +1,56 @@
+---
+// Integration landscape from Workstream C: ERP core with 18 submodules,
+// 6+ internal systems and 6+ external-party platforms, 180+ touchpoints.
+const C = { x: 300, y: 215 };
+const subs = Array.from({ length: 18 }, (_, i) => {
+  const a = (i / 18) * Math.PI * 2 - Math.PI / 2;
+  return { x: C.x + 78 * Math.cos(a), y: C.y + 78 * Math.sin(a) };
+});
+const side = (x: number) => Array.from({ length: 6 }, (_, i) => ({ x, y: 70 + i * 58 }));
+const internal = side(62);
+const external = side(538);
+const curve = (a: { x: number; y: number }, b: { x: number; y: number }) =>
+  `M${a.x} ${a.y} C ${(a.x + b.x) / 2} ${a.y}, ${(a.x + b.x) / 2} ${b.y}, ${b.x} ${b.y}`;
+---
+<svg viewBox="-40 0 680 440" role="img" aria-labelledby="hub-t" class="hub">
+  <title id="hub-t">Integration landscape: an ERP core with 18 submodules connected to 6+ internal systems and 6+ external-party platforms through 180+ integration touchpoints</title>
+  {internal.map((n, i) => (
+    <path d={curve({ x: n.x + 34, y: n.y }, { x: C.x - 100, y: C.y })} pathLength="1" class="draw link"
+      stroke="var(--accent-3)" style={`animation-delay:${i * 80}ms`} />
+  ))}
+  {external.map((n, i) => (
+    <path d={curve({ x: C.x + 100, y: C.y }, { x: n.x - 34, y: n.y })} pathLength="1" class="draw link"
+      stroke="var(--accent-2)" style={`animation-delay:${300 + i * 80}ms`} />
+  ))}
+  <circle cx={C.x} cy={C.y} r="100" fill="var(--accent-soft)" />
+  {subs.map((s, i) => (
+    <circle cx={s.x} cy={s.y} r="9" fill="var(--accent)" class="fade" style={`animation-delay:${i * 40}ms`} />
+  ))}
+  <circle cx={C.x} cy={C.y} r="50" fill="var(--ink)" />
+  <text x={C.x} y={C.y - 2} text-anchor="middle" class="core">ERP</text>
+  <text x={C.x} y={C.y + 17} text-anchor="middle" class="core-sub">18 submodules</text>
+
+  {internal.map((n) => (
+    <rect x={n.x - 34} y={n.y - 16} width="68" height="32" rx="8" fill="var(--accent-3-soft)" stroke="var(--accent-3)" />
+  ))}
+  {external.map((n) => (
+    <rect x={n.x - 34} y={n.y - 16} width="68" height="32" rx="8" fill="var(--accent-2-soft)" stroke="var(--accent-2)" />
+  ))}
+  <text x="62" y="30" text-anchor="middle" class="svg-text side">Internal</text>
+  <text x="62" y="420" text-anchor="middle" class="svg-text cap">6+ legacy &amp; modern</text>
+  <text x="538" y="30" text-anchor="middle" class="svg-text side">External</text>
+  <text x="538" y="420" text-anchor="middle" class="svg-text cap">6+ third-party</text>
+  <g class="pill">
+    <rect x="215" y="370" width="170" height="40" rx="20" fill="var(--surface)" stroke="var(--line)" />
+    <text x="300" y="396" text-anchor="middle" class="svg-text pill-t">180+ touchpoints</text>
+  </g>
+</svg>
+<style>
+  .hub { width: 100%; max-width: 760px; display: block; margin-inline: auto; }
+  .link { fill: none; stroke-width: 2; opacity: 0.75; }
+  .core { font: 700 22px var(--font-display); fill: var(--bg); }
+  .core-sub { font: 500 11px var(--font-sans); fill: var(--bg); opacity: 0.8; }
+  .side { font: 700 17px var(--font-display); }
+  .cap { font-size: 14px; fill: var(--ink-2); }
+  .pill-t { font: 700 17px var(--font-display); fill: var(--accent); }
+</style>
