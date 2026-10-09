@@ -38,7 +38,7 @@ const hobbies = defineCollection({
   schema: z.object({
     title: z.string(),
     tagline: z.string(),
-    icon: z.enum(['runner', 'mountain', 'futsal']),
+    icon: z.enum(['runner', 'mountain']),
     order: z.number().default(99),
     highlights: z.array(z.string()).default([]),
   }),
