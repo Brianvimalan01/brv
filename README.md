@@ -1,6 +1,8 @@
 # BRV — Brianvimalan Francis
 
-Personal website and consulting portfolio. Built with [Astro](https://astro.build); all content is plain Markdown. Pushing to `main` deploys to GitHub Pages automatically.
+Personal website and consulting portfolio. **Live: https://brianvimalan01.github.io/brv/**
+
+ Built with [Astro](https://astro.build); all content is plain Markdown. Pushing to `main` deploys to GitHub Pages automatically.
 
 ## Pages
 
@@ -37,7 +39,19 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # production build into dist/
 npm run check    # type-check
+npm run verify   # type-check + build (run before every push)
+npm run deploy-status -- --wait   # after a push: wait for the live deploy result
 ```
+
+## Making updates
+
+1. Edit the Markdown.
+2. Run `npm run verify`.
+3. Add a line to `CHANGELOG.md`.
+4. Commit and `git push`.
+5. GitHub Actions type-checks, builds and publishes, usually in about a minute.
+
+You can also edit a file directly on github.com (the pencil icon). That triggers the same deploy. Run `git pull` locally before your next local edit.
 
 ## Deployment
 

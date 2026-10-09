@@ -3,12 +3,14 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "BRV — Brianvimalan Francis: personal website and consulting portfolio",
+  "description": "BRV \u2014 Brianvimalan Francis: personal website and consulting portfolio",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "verify": "astro check && astro build",
+    "deploy-status": "bash scripts/deploy-status.sh"
   },
   "engines": {
     "node": ">=22.12.0"
