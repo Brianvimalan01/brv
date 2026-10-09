@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HobbyIllustration from '../components/illustrations/HobbyIllustration.astro';
+
+const hobbies = await Promise.all(
+  (await getCollection('hobbies'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (h) => ({ h, Content: (await render(h)).Content })),
+);
+---
+<BaseLayout title="Hobbies & Interests">
+  <section class="section container">
+    <span class="eyebrow">Hobbies &amp; interests</span>
+    <h1>Off the clock</h1>
+    <p class="lead">Running, hiking and futsal keep me sharp — the same discipline, teamwork and pacing I bring to long programmes.</p>
+  </section>
+  <section class="container list">
+    {hobbies.map(({ h, Content }, i) => (
+      <article id={h.id} class:list={['hobby card', { flip: i % 2 === 1 }]}>
+        <div class="art"><HobbyIllustration name={h.data.icon} /></div>
+        <div class="body">
+          <h2>{h.data.title}</h2>
+          <p class="tag-line">{h.data.tagline}</p>
+          <div class="prose"><Content /></div>
+          {h.data.highlights.length > 0 && (
+            <ul class="hl">{h.data.highlights.map((x) => <li>{x}</li>)}</ul>
+          )}
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+<style>
+  .list { display: grid; gap: 24px; }
+  .hobby { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; padding: clamp(20px, 4vw, 36px); align-items: center; scroll-margin-top: 90px; }
+  .flip .art { order: 2; }
+  .art { background: var(--surface-2); border-radius: 12px; padding: 16px; }
+  .tag-line { color: var(--accent); font-weight: 600; }
+  .hl { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+  .hl li { padding: 10px 14px; border-radius: 10px; background: var(--surface-2); font-size: 0.93rem; }
+  @media (max-width: 720px) { .hobby { grid-template-columns: 1fr; } .flip .art { order: 0; } }
+</style>

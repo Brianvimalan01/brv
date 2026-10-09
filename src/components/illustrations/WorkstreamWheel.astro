@@ -1,0 +1,51 @@
+---
+// Six ERP workstreams arranged as a donut around the programme core.
+// `anchors` maps each letter (A–F) to an in-page section link.
+interface Props { anchors?: Record<string, string | undefined> }
+const { anchors = {} } = Astro.props;
+
+const items = [
+  { k: 'A', l1: 'PMO &', l2: 'Governance' },
+  { k: 'B', l1: 'Business', l2: 'Analysis' },
+  { k: 'C', l1: 'Data &', l2: 'Integration' },
+  { k: 'D', l1: 'Technology', l2: 'Roadmap' },
+  { k: 'E', l1: 'Vendor', l2: 'Evaluation' },
+  { k: 'F', l1: 'Testing &', l2: 'Go-Live' },
+];
+const C = 220, R = 205, r = 92, gap = 1.6;
+const pt = (rad: number, deg: number) => {
+  const a = ((deg - 90) * Math.PI) / 180;
+  return [C + rad * Math.cos(a), C + rad * Math.sin(a)].map((v) => v.toFixed(2)).join(' ');
+};
+const fills = ['var(--accent-soft)', 'var(--accent-3-soft)', 'var(--accent-2-soft)'];
+const segs = items.map((it, i) => {
+  const a0 = i * 60 + gap, a1 = (i + 1) * 60 - gap, mid = i * 60 + 30;
+  const d = `M ${pt(R, a0)} A ${R} ${R} 0 0 1 ${pt(R, a1)} L ${pt(r, a1)} A ${r} ${r} 0 0 0 ${pt(r, a0)} Z`;
+  const [lx, ly] = pt((R + r) / 2, mid).split(' ').map(Number);
+  return { ...it, d, lx, ly, fill: fills[i % 3], href: anchors[it.k] };
+});
+---
+<svg viewBox="0 0 440 440" role="img" aria-labelledby="wheel-t" class="wheel">
+  <title id="wheel-t">ERP transformation programme: six workstreams A to F around the programme core</title>
+  {segs.map((s, i) => (
+    <a href={s.href} aria-label={`Workstream ${s.k}: ${s.l1} ${s.l2}`} class="seg fade" style={`animation-delay:${i * 90}ms`}>
+      <path d={s.d} fill={s.fill} stroke="var(--line)" />
+      <text x={s.lx} y={s.ly - 16} text-anchor="middle" class="svg-text k">{s.k}</text>
+      <text x={s.lx} y={s.ly + 6} text-anchor="middle" class="svg-text l">{s.l1}</text>
+      <text x={s.lx} y={s.ly + 24} text-anchor="middle" class="svg-text l">{s.l2}</text>
+    </a>
+  ))}
+  <circle cx={C} cy={C} r={r - 10} fill="var(--ink)" />
+  <text x={C} y={C - 6} text-anchor="middle" class="core">ERP</text>
+  <text x={C} y={C + 16} text-anchor="middle" class="core-sub">Transformation</text>
+</svg>
+<style>
+  .wheel { width: 100%; max-width: 440px; display: block; margin-inline: auto; }
+  .seg path { transition: fill .2s ease; }
+  .seg:hover path, .seg:focus-visible path { fill: var(--accent); }
+  .seg:hover text, .seg:focus-visible text { fill: var(--accent-ink); }
+  .k { font: 700 22px var(--font-display); fill: var(--accent); }
+  .l { font-size: 14.5px; font-weight: 600; }
+  .core { font: 700 26px var(--font-display); fill: var(--bg); }
+  .core-sub { font: 500 13px var(--font-sans); fill: var(--bg); opacity: 0.8; }
+</style>

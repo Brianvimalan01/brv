@@ -1,0 +1,45 @@
+---
+// The ten-stage data migration lifecycle from Workstream C, grouped in phases.
+const phases = [
+  { name: 'Understand', tone: 'p1', steps: ['Discovery', 'Assessment'] },
+  { name: 'Define', tone: 'p2', steps: ['Mapping', 'Cleansing', 'Design'] },
+  { name: 'Deliver', tone: 'p3', steps: ['Build', 'Testing', 'Execution'] },
+  { name: 'Assure', tone: 'p1', steps: ['Validation', 'Reconciliation'] },
+];
+let n = 0;
+const steps = phases.flatMap((p) => p.steps.map((s) => ({ s, tone: p.tone, n: ++n })));
+---
+<div class="ml" role="img" aria-label="Data migration lifecycle: Discovery, Assessment, Mapping, Cleansing, Design, Build, Testing, Execution, Validation, Reconciliation">
+  <ul class="legend" aria-hidden="true">
+    {phases.map((p) => <li class={p.tone}>{p.name}</li>)}
+  </ul>
+  <ol class="flow" aria-hidden="true">
+    {steps.map((st, i) => (
+      <li class={`step ${st.tone} fade`} style={`animation-delay:${i * 70}ms`}>
+        <span class="num">{String(st.n).padStart(2, '0')}</span>
+        <span class="name">{st.s}</span>
+      </li>
+    ))}
+  </ol>
+</div>
+<style>
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; padding: 0; margin: 0 0 14px; font-size: 0.82rem; color: var(--ink-2); }
+  .legend li::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; background: var(--c); vertical-align: -1px; }
+  .flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; counter-reset: s; }
+  .step { position: relative; padding: 14px 12px 12px; border-radius: 10px; background: var(--bg-c); border-top: 4px solid var(--c); display: flex; flex-direction: column; gap: 2px; }
+  .step:not(:last-child)::after {
+    content: '→'; position: absolute; right: -10px; top: 50%; transform: translate(50%, -50%);
+    color: var(--ink-3); font-size: 0.9rem; z-index: 1;
+  }
+  .step:nth-child(5)::after { content: none; }
+  .num { font: 700 0.8rem var(--font-display); color: var(--c); }
+  .name { font-weight: 600; font-size: 0.95rem; }
+  .p1 { --c: var(--accent); --bg-c: var(--accent-soft); }
+  .p2 { --c: var(--accent-3); --bg-c: var(--accent-3-soft); }
+  .p3 { --c: var(--accent-2); --bg-c: var(--accent-2-soft); }
+  .legend .p1, .legend .p2, .legend .p3 { background: none; }
+  @media (max-width: 720px) {
+    .flow { grid-template-columns: repeat(2, 1fr); }
+    .step::after { content: none !important; }
+  }
+</style>

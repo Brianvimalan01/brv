@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../lib/url';
+interface Props { entry: CollectionEntry<'cases'> }
+const { entry } = Astro.props;
+const d = entry.data;
+---
+<article class="case card">
+  <div class="meta"><span>{d.sector}</span><span aria-hidden="true">·</span><span>{d.location}</span>{d.duration && <><span aria-hidden="true">·</span><span>{d.duration}</span></>}</div>
+  <h3><a href={url(`/portfolio/${entry.id}`)}>{d.title}</a></h3>
+  <p>{d.summary}</p>
+  {d.stats.length > 0 && (
+    <dl class="mini">
+      {d.stats.slice(0, 3).map((s) => <div><dt>{s.label}</dt><dd>{s.value}</dd></div>)}
+    </dl>
+  )}
+  <ul class="tags">{d.services.slice(0, 4).map((s) => <li class="tag">{s}</li>)}</ul>
+</article>
+<style>
+  .case { padding: 26px; display: flex; flex-direction: column; gap: 12px; position: relative; transition: transform .15s ease, border-color .15s ease; }
+  .case:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 0.82rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  h3 { font-size: 1.3rem; margin: 0; }
+  h3 a { color: var(--ink); text-decoration: none; }
+  h3 a::after { content: ''; position: absolute; inset: 0; }
+  p { color: var(--ink-2); margin: 0; }
+  .mini { display: flex; gap: 22px; margin: 4px 0; flex-wrap: wrap; }
+  .mini div { display: flex; flex-direction: column-reverse; }
+  .mini dd { margin: 0; font: 700 1.5rem/1 var(--font-display); color: var(--accent); }
+  .mini dt { font-size: 0.78rem; color: var(--ink-3); }
+</style>

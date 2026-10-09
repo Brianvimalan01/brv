@@ -1,0 +1,41 @@
+---
+// Abstract "transformation network": legacy nodes on the left converging
+// through a hub into a structured future-state grid on the right.
+const left = [60, 120, 180, 240, 300].map((y, i) => ({ x: 40 + (i % 2) * 30, y }));
+const right = [80, 140, 200, 260].flatMap((y) => [{ x: 330, y }, { x: 380, y }]);
+const hub = { x: 210, y: 190 };
+---
+<svg viewBox="0 0 420 360" role="img" aria-labelledby="hero-t" class="hero-svg">
+  <title id="hero-t">Illustration: scattered legacy systems converging through a central hub into an organised future-state platform</title>
+  <defs>
+    <linearGradient id="hero-g" x1="0" x2="1">
+      <stop offset="0" stop-color="var(--accent-2)" />
+      <stop offset="1" stop-color="var(--accent)" />
+    </linearGradient>
+  </defs>
+  <rect x="290" y="50" width="120" height="250" rx="18" fill="var(--accent-soft)" class="fade" />
+  {left.map((n, i) => (
+    <path d={`M${n.x} ${n.y} C ${n.x + 90} ${n.y}, ${hub.x - 90} ${hub.y}, ${hub.x} ${hub.y}`}
+      pathLength="1" fill="none" stroke="url(#hero-g)" stroke-width="2" class="draw"
+      style={`animation-delay:${i * 120}ms`} />
+  ))}
+  {right.map((n, i) => (
+    <path d={`M${hub.x} ${hub.y} C ${hub.x + 60} ${hub.y}, ${n.x - 60} ${n.y}, ${n.x} ${n.y}`}
+      pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.6" class="draw"
+      style={`animation-delay:${600 + i * 60}ms`} />
+  ))}
+  {left.map((n, i) => (
+    <circle cx={n.x} cy={n.y} r={9 - (i % 3) * 2} fill="var(--accent-2)" class="fade" style={`animation-delay:${i * 100}ms`} />
+  ))}
+  {right.map((n, i) => (
+    <rect x={n.x - 10} y={n.y - 10} width="20" height="20" rx="5" fill="var(--accent)" class="fade" style={`animation-delay:${900 + i * 50}ms`} />
+  ))}
+  <circle cx={hub.x} cy={hub.y} r="54" fill="var(--ink)" class="fade" style="animation-delay:400ms" />
+  <circle cx={hub.x} cy={hub.y} r="66" fill="none" stroke="var(--ink)" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="4 6" />
+  <text x={hub.x} y={hub.y + 9} text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="28" fill="var(--bg)" letter-spacing="1">BRV</text>
+  <text x="55" y="340" text-anchor="middle" class="svg-text" font-size="13" fill-opacity="0.7">Legacy</text>
+  <text x="355" y="330" text-anchor="middle" class="svg-text" font-size="13" fill-opacity="0.7">Future state</text>
+</svg>
+<style>
+  .hero-svg { width: 100%; max-width: 460px; display: block; margin-inline: auto; }
+</style>

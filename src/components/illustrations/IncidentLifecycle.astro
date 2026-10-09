@@ -1,0 +1,45 @@
+---
+// Cyber incident lifecycle governed by the PMO, with the cross-cutting
+// governance layer underneath.
+const phases = ['Analysis', 'Containment', 'Remediation', 'Recovery', 'Closure'];
+const band = ['Executive reporting & dashboards', 'Actions · risks · decisions · escalations', 'RCA & corrective-action governance'];
+const groups = ['Information Security', 'Technology', 'Risk', 'Business', 'Specialists'];
+---
+<div class="il">
+  <ol class="phases" aria-label="Incident lifecycle phases">
+    {phases.map((p, i) => (
+      <li class="ph fade" style={`animation-delay:${i * 100}ms`}>
+        <span class="n">{i + 1}</span><span>{p}</span>
+      </li>
+    ))}
+  </ol>
+  <div class="band" aria-label="PMO governance layer">
+    <span class="band-t">PMO governance layer</span>
+    <ul>{band.map((b) => <li>{b}</li>)}</ul>
+  </div>
+  <div class="groups">
+    <span class="muted">Stakeholders coordinated:</span>
+    <ul class="tags">{groups.map((g) => <li class="tag">{g}</li>)}</ul>
+  </div>
+</div>
+<style>
+  .phases { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .ph {
+    display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px 16px 18px;
+    background: var(--accent-2-soft); font-weight: 600; font-size: 0.95rem; text-align: center;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%);
+  }
+  .ph:first-child { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); padding-left: 8px; }
+  .ph:last-child { background: var(--accent-soft); }
+  .n { font: 700 1.3rem/1 var(--font-display); color: var(--accent-2); }
+  .ph:last-child .n { color: var(--accent); }
+  .band { margin-top: 10px; padding: 14px 16px; border-radius: 10px; background: var(--ink); color: var(--bg); }
+  .band-t { font: 700 0.78rem var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+  .band ul { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 6px 22px; font-weight: 500; font-size: 0.92rem; }
+  .band li::before { content: '◆'; color: var(--accent); margin-right: 8px; font-size: 0.7em; }
+  .groups { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; font-size: 0.9rem; }
+  @media (max-width: 720px) {
+    .phases { grid-template-columns: 1fr; }
+    .ph, .ph:first-child { clip-path: none; flex-direction: row; padding: 12px 14px; border-radius: 8px; }
+  }
+</style>

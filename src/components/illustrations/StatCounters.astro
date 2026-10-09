@@ -1,0 +1,52 @@
+---
+interface Props { stats: { value: string; label: string }[] }
+const { stats } = Astro.props;
+// Split "180+" → 180 and "+" so the number can count up while the suffix stays.
+const parsed = stats.map((s) => {
+  const m = s.value.match(/^(\D*)(\d+)(.*)$/);
+  return m ? { ...s, prefix: m[1], n: Number(m[2]), suffix: m[3] } : { ...s, prefix: '', n: null, suffix: '' };
+});
+---
+<ul class="stats">
+  {parsed.map((s) => (
+    <li class="stat card">
+      <span class="value">
+        {s.prefix}<span data-count={s.n ?? undefined}>{s.n ?? s.value}</span>{s.suffix}
+      </span>
+      <span class="label">{s.label}</span>
+      <span class="bar" aria-hidden="true"><span></span></span>
+    </li>
+  ))}
+</ul>
+<script>
+  const els = document.querySelectorAll<HTMLElement>('[data-count]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const el = e.target as HTMLElement;
+        const target = Number(el.dataset.count);
+        const start = performance.now();
+        const tick = (t: number) => {
+          const p = Math.min(1, (t - start) / 1100);
+          el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      }
+    }, { threshold: 0.5 });
+    els.forEach((el) => io.observe(el));
+  }
+</script>
+<style>
+  .stats { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .stat { padding: 20px; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; }
+  .value { font: 700 clamp(2rem, 4vw, 2.6rem)/1 var(--font-display); color: var(--accent); letter-spacing: -0.03em; }
+  .label { color: var(--ink-2); font-size: 0.92rem; line-height: 1.35; }
+  .bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: var(--surface-2); }
+  .bar span { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-3)); transform-origin: left; animation: grow 1.2s ease both; }
+  @keyframes grow { from { transform: scaleX(0); } }
+  @media (prefers-reduced-motion: reduce) { .bar span { animation: none; } }
+</style>
