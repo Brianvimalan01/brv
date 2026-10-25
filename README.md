@@ -13,7 +13,7 @@ Personal website and consulting portfolio. **Live: https://brianvimalan01.github
 | Hobbies `/hobbies` | `src/content/hobbies/*.md` |
 | Projects `/portfolio` | `src/content/cases/*.md` (one file per engagement) |
 
-The master portfolio document lives in `docs/Brianvimalan_Francis_Project_Portfolio.md`. A copy in `public/` is offered as a download on the site.
+The master portfolio document lives in `docs/Brianvimalan_Francis_Project_Portfolio.md`. It is source material only and is not offered as a download on the site.
 
 ## Common updates
 

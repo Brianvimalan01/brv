@@ -3,6 +3,7 @@
 Newest first. One line per update: what changed on the site, in plain words.
 
 ## 2026-10-25
+- Removed the "Download portfolio" links and the downloadable file.
 - Cleaner, friendlier home page: profile photo, short intro, and simple project cards that open each project.
 - Added photos: profile picture (home and About), ERP project photo, running and hiking photos.
 - Project pages now open with a plain-words summary; the ERP page explains how the RAID logs kept it on track.
