@@ -8,10 +8,10 @@ Personal website and consulting portfolio. **Live: https://brianvimalan01.github
 
 | Page | Content comes from |
 |---|---|
-| Home `/` | featured cases + hobbies (automatic) |
-| About `/about` | `src/content/pages/about.md` + `src/content/capabilities/*.md` |
+| Home `/` | profile photo, intro, project cards (featured cases) + hobby cards (automatic) |
+| About `/about` | `src/content/pages/about.md` |
 | Hobbies `/hobbies` | `src/content/hobbies/*.md` |
-| Portfolio `/portfolio` | `src/content/cases/*.md` (one file per engagement) |
+| Projects `/portfolio` | `src/content/cases/*.md` (one file per engagement) |
 
 The master portfolio document lives in `docs/Brianvimalan_Francis_Project_Portfolio.md`. A copy in `public/` is offered as a download on the site.
 
@@ -20,6 +20,7 @@ The master portfolio document lives in `docs/Brianvimalan_Francis_Project_Portfo
 - **Add a consulting case:** copy `src/content/cases/_TEMPLATE.md` to `src/content/cases/<url-slug>.md`, fill it in, and set `draft: false`.
 - **Hide a case:** set `draft: true` in its frontmatter.
 - **Show a case on the home page:** set `featured: true`.
+- **Card text and photo:** `tagline:` is the one line on the project card; `cover:` (e.g. `/images/erp-workshop.jpg`) and `coverAlt:` add a photo to the card and the case page.
 - **Add diagrams to a case:** list them under `illustrations:`. The options are:
   - `stat-counters`: the headline numbers from `stats:`
   - `workstream-wheel`: links to `## Workstream A…F` sections
@@ -27,8 +28,8 @@ The master portfolio document lives in `docs/Brianvimalan_Francis_Project_Portfo
   - `integration-hub`
   - `golive-timeline`
   - `incident-lifecycle`
-- **Edit hobbies:** replace the `TODO` text in `src/content/hobbies/*.md`.
-- **Profile photo:** put `photo.jpg` in `public/`, then swap the placeholder in `src/pages/about.astro`.
+- **Edit hobbies:** edit `src/content/hobbies/*.md`. List photos under `photos:` (the first one is the card cover).
+- **Photos:** all images live in `public/images/`. Resize them for the web (about 1400px on the long side) and strip location data before committing. The profile photo is `public/images/profile.jpg`.
 
 ## Local development
 

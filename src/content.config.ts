@@ -24,6 +24,11 @@ const cases = defineCollection({
     roles: z.array(z.string()),
     duration: z.string().optional(),
     summary: z.string(),
+    // One friendly line for the project card on the home and portfolio pages.
+    tagline: z.string(),
+    // Optional photo in public/ (e.g. /images/erp-workshop.jpg) shown on the card and case page.
+    cover: z.string().optional(),
+    coverAlt: z.string().default(''),
     services: z.array(z.string()).default([]),
     stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
     illustrations: z.array(z.enum(illustrationNames)).default([]),
@@ -41,6 +46,8 @@ const hobbies = defineCollection({
     icon: z.enum(['runner', 'mountain']),
     order: z.number().default(99),
     highlights: z.array(z.string()).default([]),
+    // Photos in public/ (e.g. /images/running-race.jpg); the first one is the cover.
+    photos: z.array(z.object({ src: z.string(), alt: z.string(), caption: z.string().optional() })).default([]),
   }),
 });
 
@@ -53,14 +60,4 @@ const pages = defineCollection({
   }),
 });
 
-const capabilities = defineCollection({
-  loader: glob({ pattern: ['*.md'], base: './src/content/capabilities' }),
-  schema: z.object({
-    title: z.string(),
-    order: z.number(),
-    icon: z.enum(['strategy', 'pmo', 'analysis', 'data', 'vendor', 'risk', 'tools']),
-    items: z.array(z.string()),
-  }),
-});
-
-export const collections = { cases, hobbies, pages, capabilities };
+export const collections = { cases, hobbies, pages };

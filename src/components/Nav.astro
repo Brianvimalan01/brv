@@ -1,9 +1,9 @@
 ---
 import { url } from '../lib/url';
 const links = [
-  { href: '/about', label: 'About' },
+  { href: '/portfolio', label: 'Projects' },
   { href: '/hobbies', label: 'Hobbies' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/about', label: 'About' },
 ];
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 ---

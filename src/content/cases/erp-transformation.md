@@ -10,6 +10,9 @@ roles:
   - Technical Consultant
   - Technology Transformation Roadmap Consultant
   - Vendor and Solution Evaluation Support
+tagline: Helping a public-sector organisation move its finance system onto a new ERP, from requirements to go-live.
+cover: /images/erp-workshop.jpg
+coverAlt: A project working session around a meeting table, with the agenda on screen.
 summary: A large-scale public-sector financial system modernization programme involving ERP implementation, business-process transformation, data migration, enterprise integration, vendor coordination, testing, organizational readiness, and transition to a future-state platform.
 services:
   - PMO and delivery governance
@@ -33,6 +36,22 @@ order: 1
 featured: true
 draft: false
 ---
+
+## The project in plain words
+
+A public-sector organisation was replacing its old financial system with a modern ERP. That meant agreeing what the new system had to do, moving years of data across, connecting it to many other systems, and getting everyone ready for the switch. My job was to keep all of those moving parts (business teams, vendors, data, integrations and testing) pointed at the same go-live.
+
+## How we kept it on track
+
+Most of the day-to-day was running the project's RAID logs, which track risks, actions, issues and decisions. A few things made them work:
+
+- **Every risk got a score.** Probability and impact were each rated 1 to 5 and multiplied, so a 20 stood out from a 4 and the team knew where to look first.
+- **Risks became issues when they landed.** A risk that materialised moved to the issue log with its root cause and a resolution plan, so nothing lost its history.
+- **Decisions were traceable.** Each one was tied to the progress meeting where it was made, with who proposed it and who approved it. Scope calls, such as bringing a module back into the implementation, all had a clear trail.
+- **Actions had owners and dates.** Items from every working committee meeting were tracked to closure, then rolled up into monthly status reports for leadership.
+- **Logs in two languages.** Entries were kept in Malay and English so business users and technical teams could both work from them.
+
+The risks we watched most closely were familiar ones: deliverables and document sign-offs running late, user acceptance testing slipping, working-level users not fully understanding the agreed requirements, and requirement changes adding cost and time. A requirements traceability matrix helped keep that last one in check.
 
 ## Engagement Overview
 
