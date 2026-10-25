@@ -8,6 +8,9 @@ location: e.g. Malaysia
 roles:
   - Your role on the engagement
 duration: e.g. 6 months   # optional
+tagline: One friendly line for the project card.
+cover: /images/my-photo.jpg   # optional, a photo placed in public/images/
+coverAlt: What the photo shows # optional, for screen readers
 summary: One or two sentences describing the engagement.
 services:
   - Service line 1

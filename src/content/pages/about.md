@@ -1,15 +1,15 @@
 ---
 title: About Me
-eyebrow: Transformation Excellence Analyst
-lead: I bridge consulting, business analysis, and technical delivery, helping organisations move complex transformations from strategy to go-live.
+eyebrow: Hi, I'm Brian
+lead: I help organisations get big technology changes over the line, and I spend my free time running and hiking.
 ---
 
-## Professional profile
+## What I do
 
-Transformation Excellence Analyst with over three years of experience supporting technology transformation, ERP modernization, PMO governance, business analysis, data migration and integration, technology strategy, vendor evaluation, and cyber incident governance across public and private sector organizations.
+I've spent the last three years or so on technology transformation work: ERP modernisation, project governance, business analysis, data migration and integration, vendor evaluation, and cyber incident coordination, across public and private sector organisations.
 
-## How I work
+## How I like to work
 
-My strongest experience is in governing complex transformations, translating business objectives into structured requirements and plans, coordinating ERP migration and integration, evaluating technology and vendors, and providing management visibility across delivery and risk.
+I enjoy turning a messy picture into a clear plan: getting requirements written down properly, keeping risks and decisions visible, and making sure everyone is working towards the same go-live.
 
 <!-- TODO: Add a personal paragraph: where you're based, what drives you, what you're looking for next. -->

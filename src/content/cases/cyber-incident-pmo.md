@@ -6,6 +6,7 @@ location: Malaysia
 roles:
   - PMO Lead / Cyber Incident Management PMO
 duration: 5 months
+tagline: Five months keeping a bank's cyber incident response organised, visible and moving to closure.
 summary: A five-month PMO and governance engagement supporting the management of a cybersecurity incident in a regulated banking environment.
 services:
   - Incident governance
@@ -23,6 +24,10 @@ order: 2
 featured: true
 draft: false
 ---
+
+## The project in plain words
+
+When a bank deals with a cybersecurity incident, many teams have to act at once and leadership needs a clear picture every day. I ran the PMO that held it together: one view of status, impact, actions and decisions, from first analysis through to closure.
 
 ## Engagement Overview
 

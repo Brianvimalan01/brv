@@ -3,10 +3,10 @@ title: Running
 tagline: Miles, mornings, and a clear head.
 icon: runner
 order: 1
-highlights:
-  - "TODO: e.g. Favourite race or distance"
-  - "TODO: e.g. Personal best"
-  - "TODO: e.g. Next goal"
+photos:
+  - src: /images/running-race.jpg
+    alt: Brian and a friend with their race bibs in front of the finisher wall.
+    caption: Finisher photo after a race with a friend.
 ---
 
-TODO: Write a few lines about why you run, where you like to run, and what it gives you.
+Running is how I clear my head. Race days are the fun part: a bib, a crowd, and a finish line to chase.

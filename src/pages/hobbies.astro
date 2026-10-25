@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HobbyIllustration from '../components/illustrations/HobbyIllustration.astro';
+import { url } from '../lib/url';
 
 const hobbies = await Promise.all(
   (await getCollection('hobbies'))
@@ -13,12 +14,21 @@ const hobbies = await Promise.all(
   <section class="section container">
     <span class="eyebrow">Hobbies &amp; interests</span>
     <h1>Off the clock</h1>
-    <p class="lead">Running and hiking keep me sharp — the same discipline and pacing I bring to long programmes.</p>
+    <p class="lead">Running and hiking are how I switch off and recharge.</p>
   </section>
   <section class="container list">
     {hobbies.map(({ h, Content }, i) => (
       <article id={h.id} class:list={['hobby card', { flip: i % 2 === 1 }]}>
-        <div class="art"><HobbyIllustration name={h.data.icon} /></div>
+        <div class:list={['art', { photos: h.data.photos.length > 0 }]}>
+          {h.data.photos.length > 0
+            ? h.data.photos.map((p) => (
+                <figure>
+                  <img src={url(p.src)} alt={p.alt} loading="lazy" />
+                  {p.caption && <figcaption>{p.caption}</figcaption>}
+                </figure>
+              ))
+            : <HobbyIllustration name={h.data.icon} />}
+        </div>
         <div class="body">
           <h2>{h.data.title}</h2>
           <p class="tag-line">{h.data.tagline}</p>
@@ -36,6 +46,10 @@ const hobbies = await Promise.all(
   .hobby { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; padding: clamp(20px, 4vw, 36px); align-items: center; scroll-margin-top: 90px; }
   .flip .art { order: 2; }
   .art { background: var(--surface-2); border-radius: 12px; padding: 16px; }
+  .art.photos { background: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .art figure { margin: 0; }
+  .art img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; display: block; }
+  .art figcaption { font-size: 0.82rem; color: var(--ink-3); margin-top: 6px; }
   .tag-line { color: var(--accent); font-weight: 600; }
   .hl { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
   .hl li { padding: 10px 14px; border-radius: 10px; background: var(--surface-2); font-size: 0.93rem; }

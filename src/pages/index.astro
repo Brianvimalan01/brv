@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroMonogram from '../components/illustrations/HeroMonogram.astro';
-import StatCounters from '../components/illustrations/StatCounters.astro';
 import HobbyIllustration from '../components/illustrations/HobbyIllustration.astro';
 import CaseCard from '../components/CaseCard.astro';
 import { url } from '../lib/url';
@@ -10,79 +8,74 @@ import { url } from '../lib/url';
 const cases = (await getCollection('cases', ({ data }) => !data.draft && data.featured))
   .sort((a, b) => a.data.order - b.data.order);
 const hobbies = (await getCollection('hobbies')).sort((a, b) => a.data.order - b.data.order);
-
-const headline = [
-  { value: '3+', label: 'Years in transformation consulting' },
-  { value: '18', label: 'ERP submodules governed' },
-  { value: '180+', label: 'Integration touchpoints planned' },
-  { value: '5', label: 'Month cyber incident PMO' },
-];
 ---
 <BaseLayout>
   <section class="hero section">
     <div class="container hero-grid">
+      <img class="photo" src={url('/images/profile.jpg')} alt="Portrait of Brianvimalan Francis" width="703" height="900" />
       <div>
-        <span class="eyebrow">BRV · Transformation Excellence Analyst</span>
+        <span class="eyebrow">Hi, I'm Brian</span>
         <h1>Brianvimalan Francis</h1>
         <p class="lead">
-          I bridge consulting, business analysis, and technical delivery — governing complex ERP
-          and technology transformations from requirements to go-live across the public and private sectors.
+          I help organisations get big technology changes over the line, from new ERP systems to
+          cyber incident response. When I'm not doing that, I'm out running or hiking.
         </p>
         <div class="cta">
-          <a class="btn btn-primary" href={url('/portfolio')}>View portfolio →</a>
+          <a class="btn btn-primary" href="#projects">See my projects ↓</a>
           <a class="btn" href={url('/about')}>About me</a>
         </div>
       </div>
-      <HeroMonogram />
     </div>
   </section>
 
-  <section class="container">
-    <StatCounters stats={headline} />
-  </section>
-
-  <section class="section container">
-    <div class="head">
-      <div>
-        <span class="eyebrow">Consulting portfolio</span>
-        <h2>Selected engagements</h2>
-      </div>
-      <a href={url('/portfolio')}>All cases →</a>
-    </div>
+  <section id="projects" class="container block">
+    <span class="eyebrow">Projects</span>
+    <h2>Things I've worked on</h2>
+    <p class="muted">Pick one to see what it involved. Client names are kept private.</p>
     <div class="grid cases">{cases.map((c) => <CaseCard entry={c} />)}</div>
   </section>
 
-  <section class="container">
-    <div class="head">
-      <div>
-        <span class="eyebrow">Off the clock</span>
-        <h2>Running &amp; hiking</h2>
-      </div>
-      <a href={url('/hobbies')}>More →</a>
-    </div>
+  <section class="container block">
+    <span class="eyebrow">Off the clock</span>
+    <h2>Running &amp; hiking</h2>
     <div class="grid hobbies">
-      {hobbies.map((h) => (
-        <a class="hobby card" href={url(`/hobbies#${h.id}`)}>
-          <HobbyIllustration name={h.data.icon} />
-          <strong>{h.data.title}</strong>
-          <span class="muted">{h.data.tagline}</span>
-        </a>
-      ))}
+      {hobbies.map((h) => {
+        const cover = h.data.photos[0];
+        return (
+          <a class="hobby card" href={url(`/hobbies#${h.id}`)}>
+            <div class="art">
+              {cover ? <img src={url(cover.src)} alt={cover.alt} loading="lazy" /> : <HobbyIllustration name={h.data.icon} />}
+            </div>
+            <div class="txt">
+              <strong>{h.data.title}</strong>
+              <span class="muted">{h.data.tagline}</span>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </section>
 </BaseLayout>
 <style>
-  .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+  .hero-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(28px, 5vw, 56px); align-items: center; }
+  .photo {
+    width: clamp(180px, 24vw, 280px); aspect-ratio: 4 / 5; object-fit: cover; object-position: top;
+    border-radius: 24px; box-shadow: 0 0 0 8px var(--accent-soft), var(--shadow);
+  }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 24px; }
-  .head a { font-weight: 600; white-space: nowrap; }
+  .block { margin-bottom: clamp(48px, 8vw, 80px); scroll-margin-top: 90px; }
+  .block > .muted { margin-bottom: 24px; }
+  .block h2 + .grid { margin-top: 24px; }
   .cases { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .hobbies { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .hobby { padding: 18px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); transition: transform .15s ease; }
-  .hobby:hover { transform: translateY(-2px); }
-  .hobby strong { font: 600 1.15rem var(--font-display); margin-top: 8px; }
-  @media (max-width: 820px) {
+  .hobbies { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .hobby { overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--ink); transition: transform .15s ease, border-color .15s ease; }
+  .hobby:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .art { aspect-ratio: 4 / 3; background: var(--surface-2); overflow: hidden; }
+  .art img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+  .txt { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 4px; }
+  .txt strong { font: 600 1.15rem var(--font-display); }
+  @media (max-width: 720px) {
     .hero-grid { grid-template-columns: 1fr; }
-    .hero-grid > :global(svg) { max-width: 320px; }
+    .photo { width: 200px; }
   }
 </style>

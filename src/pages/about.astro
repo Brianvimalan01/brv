@@ -1,7 +1,6 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CapabilityMap from '../components/illustrations/CapabilityMap.astro';
 import { url } from '../lib/url';
 
 const about = await getEntry('pages', 'about');
@@ -15,28 +14,18 @@ const { Content } = await render(about);
       <h1>{about.data.title}</h1>
       {about.data.lead && <p class="lead">{about.data.lead}</p>}
     </div>
-    <!-- TODO: replace with your photo — put it in public/ and swap this block for <img src={url('/photo.jpg')} …> -->
-    <div class="avatar" role="img" aria-label="Profile photo placeholder">BRV</div>
+    <img class="avatar" src={url('/images/profile.jpg')} alt="Portrait of Brianvimalan Francis" width="703" height="900" />
   </section>
 
   <section class="container prose-wrap">
     <div class="prose"><Content /></div>
-  </section>
-
-  <section class="section container">
-    <span class="eyebrow">Capability map</span>
-    <h2>What I bring to a programme</h2>
-    <p class="muted">Consolidated across my public-sector ERP and banking cyber-incident engagements.</p>
-    <CapabilityMap />
-    <p class="more"><a class="btn btn-primary" href={url('/portfolio')}>See the engagements →</a></p>
+    <p class="more"><a class="btn btn-primary" href={url('/portfolio')}>See my projects →</a></p>
   </section>
 </BaseLayout>
 <style>
   .intro { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; padding-bottom: 24px; }
   .avatar {
-    width: clamp(120px, 20vw, 190px); aspect-ratio: 1; border-radius: 50%;
-    display: grid; place-items: center; font: 700 2.4rem var(--font-display); color: var(--bg);
-    background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-3));
+    width: clamp(140px, 20vw, 200px); aspect-ratio: 1; border-radius: 50%; object-fit: cover; object-position: top;
     box-shadow: 0 0 0 8px var(--accent-soft);
   }
   .more { margin-top: 28px; }
